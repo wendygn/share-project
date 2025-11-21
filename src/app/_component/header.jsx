@@ -1,9 +1,13 @@
-import { Button } from "@/components/ui/button";
-import { cn } from "@/lib/utils";
+"use client"
 import { Share2 } from "lucide-react";
-import Link from "next/link";
+import { usePathname } from "next/navigation";
+import NavLink from "./navlink";
 
 export const Header = () => {
+const pathName = usePathname() || "/"
+const normalize = (p) => p.replace(/\/$/,'') || '/'
+const p = normalize(pathName)
+
   return (
     <header className="flex justify-between px-15 py-2 bg-white items-center">
       <div className="flex">
@@ -11,24 +15,9 @@ export const Header = () => {
         <div className="text-blue-500">FileShare</div>
       </div>
       <div className="flex gap-2">
-        <Link href="/" className="px-1 rounded bg-blue-500 hover:bg-blue-400" size="nav">
-          home
-        </Link>
-        <Link
-          href="/dashboard"
-          className="bg-blue-500 hover:bg-blue-400"
-          size="nav"
-        >
-          Dashboard
-        </Link>
-        
-          <Link
-            href="/login"
-            className="bg-blue-500 hover:bg-blue-400"
-            size="nav"
-          >
-            login
-          </Link>
+        <NavLink href="/" isActive={p === "/"}>home</NavLink>
+        <NavLink href="/dashboard" isActive={p.startsWith("/dashboard")}>Dashboard</NavLink>
+        <NavLink href="/login" isActive={p === "/login"}>Login</NavLink>
       </div>
     </header>
   );

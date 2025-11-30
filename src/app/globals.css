@@ -121,3 +121,25 @@
 
   }
 }
+@layer utilities {
+    Chrome, Safari and Opera
+    .no-scrollbar::-webkit-scrollbar {
+      display: none;
+    }
+
+    .no-scrollbar {
+      -ms-overflow-style: none; /* IE and Edge */
+      scrollbar-width: none; /* Firefox */
+    }
+
+
+     /* 3) .sb-hover — scrollbar muncul saat hover (lebih ramah UX) */
+  .sb-hover::-webkit-scrollbar { width: 0; height: 0; } /* default tersembunyi */
+  .sb-hover:hover::-webkit-scrollbar { width: 12px; height: 12px; }
+  .sb-hover:hover::-webkit-scrollbar-thumb {
+    background: rgba(0,0,0,0.35);
+    border-radius: 8px;
+  }
+  .sb-hover { scrollbar-width: thin; scrollbar-color: transparent transparent; }
+  .sb-hover:hover { scrollbar-color: rgba(0,0,0,0.35) transparent; }
+}

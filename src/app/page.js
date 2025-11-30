@@ -1,9 +1,12 @@
-import { Input } from "@/components/ui/input";
-import Image from "next/image";
+;
 import { Header } from "./_component/header";
 import { Uploader } from "./_component/upload";
+import FilesList from "./_component/files-list";
+
 
 export default function Home() {
+
+
   return (
     <div>
       <Header />
@@ -12,6 +15,8 @@ export default function Home() {
         <p className="mb-5 font-medium text-gray-500">upload your files and get instant shareable links</p>
       </div>
       <Uploader />
+   <FilesList />
     </div>
   );
 }
+

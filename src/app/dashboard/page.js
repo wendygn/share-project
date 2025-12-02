@@ -1,22 +1,42 @@
-import {  Inbox, Send } from "lucide-react";
+"use client"
+import {  Inbox, Package, Send } from "lucide-react";
 import { Header } from "../_component/header";
+import { Button } from "@/components/ui/button";
+import { ButtonGroup, ButtonGroupSeparator } from "@/components/ui/button-group";
+import { ReceivedList } from "./component/received";
+import { useState } from "react";
+import { SentList } from "./component/sent";
+import { cn } from "@/lib/utils";
 
 export default function MyDashboard() {
+const [isActive, setIsActive] = useState(true)
+
+function handleReceived(){
+ setIsActive(false)
+}
+function handleSent() {
+  setIsActive(true)
+}
     return (
       <div className="h-full">
         <Header />
-        <div className="border-2 border-blue-500 w-4xl m-auto flex flex-col mt-16">
+        <div className=" border-blue-500 w-4xl m-auto flex flex-col mt-8">
           <div>
-            <h3>Dashboard</h3>
-            <div className="flex items-start rounded-lg gap-2">
-              <div className="flex border-2 w-44 justify-center items-center rounded-sm gap-2 ">
-                <Send />
-                <p>Sent</p>
-              </div>
-              <div className="flex  border-2 w-44 justify-center items-center rounded-sm gap-2">
-                <Inbox />
-                <p>receive</p>
-              </div>
+            <h3 className="text-3xl font-bold text-blue-500 tracking-wide">
+              Dashboard
+            </h3>
+            <ButtonGroup className="mt-7 border-2 bg-gray-200 p-1">
+              <Button variant="ghost" size="sm" onClick={handleSent} className={`w-30 ${isActive? "bg-gray-100" : ""}`} >
+                {" "}
+                <Send /> Sent
+              </Button>
+              <ButtonGroupSeparator />
+              <Button variant="ghost" size="sm" onClick={handleReceived} className={`w-30 ${isActive? "" : "bg-gray-100"}`}>
+                <Package /> Received
+              </Button>
+            </ButtonGroup>
+            <div className="mt-9">
+             {isActive? <SentList /> : <ReceivedList />}
             </div>
           </div>
         </div>

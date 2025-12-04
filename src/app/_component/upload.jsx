@@ -1,11 +1,12 @@
 "use client";
+import { Alert } from "@/components/ui/alert";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent } from "@/components/ui/card";
 import { set } from "date-fns";
 import { X } from "lucide-react";
 import { actionAsyncStorage } from "next/dist/server/app-render/action-async-storage.external";
 import Image from "next/image";
-import React, { useActionState, useCallback, useEffect, useState } from "react";
+import React, { useActionState, useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { object } from "zod";
@@ -13,6 +14,8 @@ import { object } from "zod";
 export const Uploader = () => {
   const [files, setFiles] = useState([]);
   const [errorFiles, setErrorFiles] = useState([]);
+  const hiddenInputRef = useRef(null)
+  
   const onDrop = useCallback((acceptedFiles) => {
     if (!acceptedFiles || acceptedFiles.length === 0) {
       return;
@@ -49,6 +52,16 @@ export const Uploader = () => {
 
     if (newFiles.length > 0) {
       setFiles((prev) => [...prev, ...newFiles]);
+
+    
+      if(hiddenInputRef.current) {
+        const dataTransfer = new DataTransfer()
+        newFiles.forEach((v) => {
+          dataTransfer.items.add(v)
+        })
+        hiddenInputRef.current.files = dataTransfer.files;
+      }
+    
     }
   }, [files]);
 
@@ -86,6 +99,7 @@ export const Uploader = () => {
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
     onDrop,
     onDropRejected,
+    multiple: true,
     maxFiles: 5,
     maxSize: 1024 * 1024 * 5,
   });
@@ -116,6 +130,13 @@ export const Uploader = () => {
       >
         <CardContent className="flex flex-col items-center justify-center w-full h-full ">
           <input name="file" {...getInputProps()} />
+          <input
+            type="file"
+            name="my-file"
+            ref={hiddenInputRef}
+            form="uploadForm"
+            style={{ opacity: 0 }}
+          />
           {isDragActive ? (
             <p>Drop the files here ...</p>
           ) : (
@@ -197,6 +218,21 @@ export const Uploader = () => {
           </div>
         </div>
       </div>
+      <form
+        id="uploadForm"
+        className="max-w-4xl w-full m-auto text-center mt-3"
+        onSubmit={async (e) => {
+          e.preventDefault();
+          const formData = new FormData(e.currentTarget);
+          const file = formData.getAll("my-file");
+          const list = file.map((a) => {
+            return a;
+          });
+          console.log(list);
+        }}
+      >
+        <Button  size="sm" className="w-25 bg-blue-500 m-auto hover:bg-blue-400" type="submit">Uploads</Button>
+      </form>
     </>
   );
 };

@@ -24,9 +24,8 @@ session Session[]
 model File {
 id String @id @default(cuid())
 name String
-desc String?
-size Int
 path String
+size Int
 createAt DateTime @default(now())
 updateAt DateTime @updatedAt
 userId String

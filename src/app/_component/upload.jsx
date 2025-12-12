@@ -10,6 +10,7 @@ import React, { useActionState, useCallback, useEffect, useRef, useState } from 
 import { useDropzone } from "react-dropzone";
 import { toast } from "sonner";
 import { object } from "zod";
+import { uploadFileAction } from "./action";
 
 export const Uploader = () => {
   const [files, setFiles] = useState([]);
@@ -219,17 +220,11 @@ export const Uploader = () => {
         </div>
       </div>
       <form
+      action={uploadFileAction}
         id="uploadForm"
+        name="my-file"
         className="max-w-4xl w-full m-auto text-center mt-3"
-        onSubmit={async (e) => {
-          e.preventDefault();
-          const formData = new FormData(e.currentTarget);
-          const file = formData.getAll("my-file");
-          const list = file.map((a) => {
-            return a;
-          });
-          console.log(list);
-        }}
+       
       >
         <Button  size="sm" className="w-25 bg-blue-500 m-auto hover:bg-blue-400" type="submit">Uploads</Button>
       </form>

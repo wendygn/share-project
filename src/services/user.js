@@ -44,3 +44,19 @@ password : withPassword
 
   }
 }
+
+export async function getUserBySessionId(sessionId){
+  const user = await prisma.session.findUnique({
+    where : {
+      id : sessionId
+    },
+    select : {
+      userId : true,
+      expiresAt : true
+    }
+  })
+  if(!user) {
+    return null
+  }
+  return user.userId
+}

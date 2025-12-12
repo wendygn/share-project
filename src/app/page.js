@@ -15,7 +15,7 @@ export default function Home() {
         <p className="mb-5 font-medium text-gray-500">upload your files and get instant shareable links</p>
       </div>
       <Uploader />
-   <FilesList />
+  
     </div>
   );
 }

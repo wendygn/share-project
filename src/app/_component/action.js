@@ -4,6 +4,7 @@ import prisma from "@/utils/prisma";
 import { s3Client } from "@/utils/s3";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { cookies } from "next/headers";
+import { redirect } from "next/navigation";
 
 export async function uploadFileAction(formData) {
   const cookiesStore = await cookies();
@@ -17,6 +18,7 @@ const rDomain = process.env.R2_PUBLIC_DOMAIN;
  for (const file of files) {
    
     const buffer = Buffer.from(await file.arrayBuffer());
+   
     const key = file.name;
 
     try {
@@ -51,5 +53,5 @@ const rDomain = process.env.R2_PUBLIC_DOMAIN;
     }
   }
 
-  return result
+ redirect("/dashboard")
 }

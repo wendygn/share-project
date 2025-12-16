@@ -60,3 +60,37 @@ export async function getUserBySessionId(sessionId){
   }
   return user.userId
 }
+
+export async function getUserById(userId){
+  const user = await prisma.user.findUnique({
+    where : {
+      id : userId
+    },
+    select : {
+      email : true,
+      name : true
+    }
+  })
+  if(!user) {
+    return null
+  }
+  return user.email
+}
+
+export async function getFilesByUserId(userid) {
+  const files = await prisma.file.findMany({
+    where : {
+      userId : userid
+    },
+    select : {
+      id : true,
+      name : true,
+      createAt : true,
+      size : true,
+      path : true,
+
+    }
+  })
+ 
+  return files
+}

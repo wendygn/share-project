@@ -16,6 +16,7 @@ model User {
   password String?
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
+  shared Shared[]
   file File[]
 session Session[]
 
@@ -28,6 +29,7 @@ path String
 size Int
 createAt DateTime @default(now())
 updateAt DateTime @updatedAt
+
 userId String
 user User @relation(fields: [userId], references: [id])
 }
@@ -36,8 +38,17 @@ model Session {
   id String @id @default(cuid())
   userId String
   user User @relation(fields : [userId], references: [id])
-  
   expiresAt DateTime
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+}
+
+model Shared {
+  id String @id @default(cuid())
+  name String
+  path String
+  size Int
+  createAt  DateTime @default(now())
+ userId String
+ user User @relation(fields: [userId], references: [id])
 }

@@ -2,19 +2,20 @@
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Share2, Trash } from "lucide-react";
-import handleDelete from "./action";
 import { useActionState, useEffect } from "react";
 import handleDeleteShare from "./action";
+import { toast } from "sonner";
 import { Alert } from "@/components/ui/alert";
 
 export default function ShareDelete({ fileId, objectKey }) {
-   const [state, action, pending] = useActionState(handleDeleteShare, null)
+  const [state, action, pending] = useActionState(handleDeleteShare, null);
 
-   useEffect(() => {
-    if(state?.url) {
-         navigator.clipboard.writeText(state.url)
+  useEffect(() => {
+    if (state?.baseUrl) {
+      navigator.clipboard.writeText(state.baseUrl);
+      toast.success("Link copied to clipboard");
     }
-   },[state])
+  }, [state]);
   return (
     <form
       action={action}

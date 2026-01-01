@@ -1,5 +1,5 @@
 "use client"
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Button } from "@/components/ui/button";
 import {
   ButtonGroup,
@@ -8,9 +8,18 @@ import {
 import { Package, Send } from "lucide-react";
 import { SentList } from "./sent";
 import { ReceivedList } from "./received";
+import { useSearchParams } from "next/navigation";
 
-export default function DashboardSelection({files}){
-const [isActive, setIsActive] = useState(true)
+export default function DashboardSelection({files, shared}){
+    const searchParams = useSearchParams();
+    const tab = searchParams.get("tab");
+const [isActive, setIsActive] = useState(tab !== "received");
+  
+  useEffect(() => {
+    
+      setIsActive(tab !== "received");
+    
+  }, [tab]);
 
 
 function handleReceived() {
@@ -21,34 +30,39 @@ function handleSent() {
 }
 
 return (
-    
- <div className=" border-blue-500 w-4xl m-auto flex flex-col mt-8">
-   <div>
-     <h3 className="text-3xl font-bold text-blue-500 tracking-wide">
-       Dashboard
-     </h3>
-     <ButtonGroup className="mt-7 border-2 bg-gray-200 p-1">
-       <Button
-         variant="ghost"
-         size="sm"
-         onClick={handleSent}
-         className={`w-30 ${isActive ? "bg-gray-100" : ""}`}
-       >
-         {" "}
-         <Send /> Sent
-       </Button>
-       <ButtonGroupSeparator />
-       <Button
-         variant="ghost"
-         size="sm"
-         onClick={handleReceived}
-         className={`w-30 ${isActive ? "" : "bg-gray-100"}`}
-       >
-         <Package /> Received
-       </Button>
-     </ButtonGroup>
-     <div className="mt-9">{isActive ? <SentList files={files}  /> : <ReceivedList />}</div>
-   </div>
- </div>
-)
+  <div className=" border-blue-500 w-4xl m-auto flex flex-col mt-8">
+    <div>
+      <h3 className="text-3xl font-bold text-blue-500 tracking-wide">
+        Dashboard
+      </h3>
+      <ButtonGroup className="mt-7 border-2 bg-gray-200 p-1">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleSent}
+          className={`w-30 ${isActive ? "bg-gray-100" : ""}`}
+        >
+          {" "}
+          <Send /> Sent
+        </Button>
+        <ButtonGroupSeparator />
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={handleReceived}
+          className={`w-30 ${isActive ? "" : "bg-gray-100"}`}
+        >
+          <Package /> Received
+        </Button>
+      </ButtonGroup>
+      <div className="mt-9">
+        {isActive ? (
+          <SentList files={files} />
+        ) : (
+          <ReceivedList shared={shared} />
+        )}
+      </div>
+    </div>
+  </div>
+);
 }

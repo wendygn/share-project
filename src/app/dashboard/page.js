@@ -3,6 +3,7 @@ import {  Inbox, Package, Send } from "lucide-react";
 import { Header } from "../_component/header";
 import {
   getFilesByUserId,
+  getSharedByUserId,
   getUserById,
   getUserBySessionId,
 } from "@/services/user";
@@ -21,11 +22,13 @@ export default async function Page() {
     }
    const userId = await getUserBySessionId(session)
    const files = await getFilesByUserId(userId)
+   const shared = await getSharedByUserId(userId)
+  
     return (
       <div className="h-full">
         <Header />
 
-       <DashboardSelection files={files} />
+       <DashboardSelection files={files} shared={shared} />
       </div>
     );
 }

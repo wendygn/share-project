@@ -94,3 +94,36 @@ export async function getFilesByUserId(userid) {
  
   return files
 }
+
+export async function getFilesById(fileId) {
+const file = await prisma.file.findUnique({
+  where : {
+    id : fileId
+  },
+  select : {
+    name : true,
+    path :true,
+    size : true,
+    userId : true,
+  }
+
+  
+})
+return file
+}
+
+export async function getSharedByUserId(userId) {
+  const shared = await prisma.shared.findMany({
+    where: {
+      userId: userId,
+    },
+    select: {
+      id: true,
+      name: true,
+      createAt: true,
+      size: true,
+      path: true,
+    },
+  });
+  return shared
+}

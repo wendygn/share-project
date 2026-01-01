@@ -4,7 +4,7 @@ import { Share2, Trash } from "lucide-react";
 import Image from "next/image"
 import ShareDelete from "./shareDeleteButton";
 
-export function SentList({files}) {
+export function SentList({files, onShared}) {
    if(!files || files.length === 0) {
     return <div>no files yet</div>
    }
@@ -29,7 +29,10 @@ export function SentList({files}) {
                   {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
-              <ShareDelete fileId={file.id} objectKey={file.name} />
+              <ShareDelete
+                fileId={file.id}
+                objectKey={file.name}
+              />
             </div>
           </div>
         ))}

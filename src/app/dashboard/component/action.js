@@ -17,18 +17,25 @@ export default async function handleDeleteShare(_, formData) {
      e.preventDefault();
     };
 
-await prisma.file.delete({
-    where : {
-        id : file,
-    }
-})
-
 await s3Client.send(
     new DeleteObjectCommand({
         Bucket : bucket,
         Key : key
     })
 )
+
+
+await prisma.file.delete({
+  where: {
+    id: file,
+  },
+});
+
+await prisma.shared.delete({
+  where : {
+    id : file
+  }
+})
 
 revalidatePath("/")
 

@@ -26,6 +26,7 @@ if(!userReceived){
 
    await prisma.shared.create({
 data : {
+    id : file.id,
     name : file.name,
     path : file.path,
     size : file.size,

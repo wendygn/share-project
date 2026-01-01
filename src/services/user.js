@@ -101,6 +101,7 @@ const file = await prisma.file.findUnique({
     id : fileId
   },
   select : {
+    id : true,
     name : true,
     path :true,
     size : true,

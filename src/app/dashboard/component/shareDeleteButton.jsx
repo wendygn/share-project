@@ -1,7 +1,7 @@
 "use client"
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Share2, Trash } from "lucide-react";
+import { Download, Share2, Trash } from "lucide-react";
 import { useActionState, useEffect } from "react";
 import handleDeleteShare from "./action";
 import { toast } from "sonner";
@@ -9,12 +9,13 @@ import { Alert } from "@/components/ui/alert";
 
 export default function ShareDelete({ fileId, objectKey }) {
   const [state, action, pending] = useActionState(handleDeleteShare, null);
-
+const domain = process.env.R2_BUCKET;
   useEffect(() => {
     if (state?.baseUrl) {
       navigator.clipboard.writeText(state.baseUrl);
       toast.success("Link copied to clipboard");
     }
+
   }, [state]);
   return (
     <form
@@ -23,7 +24,17 @@ export default function ShareDelete({ fileId, objectKey }) {
     >
       <Input defaultValue={fileId} name="delete" id="delete" hidden readOnly />
       <Input defaultValue={objectKey} name="key" id="key" hidden readOnly />
-
+      <Button
+      onClick={() => {window.location.href = `/download/${fileId}`}}
+        disabled={pending}
+        type="button"
+        name="action"
+        value="download"
+        className="text-sm hover:bg-blue-100 hover:text-blue-500"
+        variant="outline"
+      >
+        <Download className="m-auto" />
+      </Button>
       <Button
         disabled={pending}
         type="submit"

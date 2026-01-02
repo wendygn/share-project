@@ -1,10 +1,9 @@
 "use server"
 import prisma from "@/utils/prisma";
 import { s3Client } from "@/utils/s3";
-import { DeleteObjectCommand, GetObjectCommand } from "@aws-sdk/client-s3";
+import { DeleteObjectCommand, GetObjectCommand, S3Client } from "@aws-sdk/client-s3";
 import { revalidatePath } from "next/cache";
-import { getSignedUrl } from "@aws-sdk/s3-request-presigner";
-import { headers } from "next/headers";
+
 
 export default async function handleDeleteShare(_, formData) {
   const file = formData.get("delete");
@@ -48,7 +47,13 @@ const origin = process.env.NEXT_PUBLIC_APP_URL;
   const baseUrl = `${origin}/share/${file}`
  return {baseUrl}
   }
-}
+
+  if(action === "download") {
+    const origin = process.env.NEXT_PUBLIC_APP_URL;
+    const baseUrl = `${origin}/download/${file}`;
+    return { baseUrl };
+
+  }}
 
 
 export  async function handleDelete(formData) {

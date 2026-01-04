@@ -1,4 +1,4 @@
-;
+
 import { Header } from "./_component/header";
 import { Uploader } from "./_component/upload";
 import FilesList from "./_component/files-list";

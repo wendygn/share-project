@@ -9,18 +9,22 @@ import {
 } from "@/services/user";
 import { cookies } from "next/headers";
 import DashboardSelection from "./component/DashboardSelection";
-import ShareDelete from "./component/shareDeleteButton";
+
+import { redirect } from "next/navigation";
+
 
 
 
 
 export default async function Page() {
  const cookiesStore = await cookies()
-    const session = cookiesStore.get("session").value
+    const session = cookiesStore.get("session")?.value
     if(!session) {
-        return null
+      console.log("ini redirect dari dashboard")
+redirect("/login")
     }
    const userId = await getUserBySessionId(session)
+   
    const files = await getFilesByUserId(userId)
    const shared = await getSharedByUserId(userId)
   

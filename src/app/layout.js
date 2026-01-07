@@ -1,6 +1,7 @@
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
+import HeaderServer from "./_component/headerServer";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 import prisma from "@/utils/prisma";
@@ -22,26 +23,6 @@ export const metadata = {
 };
 
 export  default async function RootLayout({ children }) {
-// const cookieStore = await cookies()
-// const sessionId = cookieStore.get("session")?.value
-// if(!sessionId) {
-//   redirect("/login")
-// }
-
-// const session = await prisma.session.findUnique({
-//   where : {
-//     id : sessionId
-//   },
-//   select : {
-//     id : true
-//   }
-
-// })
-
-// if(!session) {
-//   redirect("/login")
-// }
-
 
   
   return (
@@ -49,6 +30,7 @@ export  default async function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-gray-100`}
       >
+        <HeaderServer />
         {children}
         <Toaster />
       </body>

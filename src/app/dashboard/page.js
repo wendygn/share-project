@@ -30,7 +30,7 @@ redirect("/login")
   
     return (
       <div className="h-full">
-        <Header />
+        
 
        <DashboardSelection files={files} shared={shared} />
       </div>

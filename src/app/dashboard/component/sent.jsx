@@ -8,6 +8,8 @@ export function SentList({files, onShared}) {
    if(!files || files.length === 0) {
     return <div>no files yet</div>
    }
+  
+
     return (
       <div>
         {files.map((file) => (
@@ -29,10 +31,7 @@ export function SentList({files, onShared}) {
                   {(file.size / 1024 / 1024).toFixed(2)} MB
                 </p>
               </div>
-              <ShareDelete
-                fileId={file.id}
-                objectKey={file.name}
-              />
+              <ShareDelete fileId={file.id} objectKey={file.name} />
             </div>
           </div>
         ))}

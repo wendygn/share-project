@@ -30,6 +30,17 @@ await prisma.file.delete({
   },
 });
 
+const findingShared = await prisma.shared.findUnique({
+  where : {
+    id : file
+  }
+})
+
+if (!findingShared) {
+  revalidatePath("/")
+  return
+}
+
 await prisma.shared.delete({
   where : {
     id : file

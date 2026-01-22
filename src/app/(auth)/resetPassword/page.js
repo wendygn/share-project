@@ -1,8 +1,14 @@
+"use client"
 import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
 import { Card } from "@/components/ui/card";
 import { Share2 } from "lucide-react";
+import { handleResetEmail } from "./action";
+import { useActionState } from "react";
 
 export default function ResetPassword() {
+
+  const [state, action, pending] = useActionState(handleResetEmail, null)
     return (
       <div className=" w-xl p-5 justify-center items-center m-auto mt-13">
         <div className="flex flex-col justify-center items-center mb-7">
@@ -19,11 +25,12 @@ export default function ResetPassword() {
               Check your Email for reset instruction
             </p>
           </div>
-          <div className="flex flex-col justify-center items-center">
-            <p className="text-center mb-3">if an account exist with dhfuisgf@gmail.com, you will receive password reset instruction</p>
-            <Button className="mb-3">Try Another Email</Button>
-            <div>Back to Sign In</div>
-          </div>
+          <form className="flex flex-col justify-center items-center w-full" action={action}>
+            <Input name="email" placeholder="Email" className="mb-3" />
+            <Button disabled={pending} className="w-full  bg-blue-500 hover:bg-blue-400">
+              Send
+            </Button>
+          </form>
         </Card>
       </div>
     );

@@ -19,6 +19,7 @@ model User {
   shared Shared[]
   file File[]
 session Session[]
+resetPassword ResetPassword[]
 
 }
 
@@ -52,3 +53,13 @@ model Shared {
  userId String
  user User @relation(fields: [userId], references: [id])
 }
+
+model ResetPassword {
+  id String @id @default(cuid())
+  token String @unique
+  userId String
+  user User @relation(fields: [userId], references: [id])
+  expiresAt DateTime
+  createdAt DateTime @default(now())
+}
+

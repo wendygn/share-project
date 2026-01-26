@@ -6,6 +6,7 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
 
+
 export async function uploadFileAction(formData) {
   const cookiesStore = await cookies();
   const files = formData.getAll("my-file");
@@ -55,3 +56,4 @@ const rDomain = process.env.R2_PUBLIC_DOMAIN;
 
  redirect("/dashboard")
 }
+

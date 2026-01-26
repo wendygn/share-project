@@ -17,5 +17,6 @@ await prisma.session.delete({
 cookieStore.delete("session")
 
     }
+    
     return NextResponse.json({ success: true });
 }

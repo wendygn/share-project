@@ -128,3 +128,22 @@ export async function getSharedByUserId(userId) {
   });
   return shared
 }
+
+export async function getUserByEmailOnly(email) {
+  const user = await prisma.user.findUnique({
+    where : {
+      email
+    },
+    select : {
+      id : true,
+      name : true,
+      email : true
+    }
+
+
+  })
+  if(!user) {
+    return null
+  }
+  return user.id
+}

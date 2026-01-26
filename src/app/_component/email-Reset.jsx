@@ -44,7 +44,7 @@ import {
 } from "@react-email/components";
 import { Tailwind } from "@react-email/tailwind";
 
-export default function Email({ email }) {
+export default function Email({ email, token }) {
   return (
     <Html>
       <Head />
@@ -60,7 +60,7 @@ export default function Email({ email }) {
                 Someone recently requested a password change for youraccount. If this was you, you can set a new password here:
               </Text>
               <Button className="bg-[#007ee6] rounded text-white text-[15px] no-underline text-center font-dropbox-sans block w-[210px] py-3.5 px-[7px]">
-                Reset password
+               {token}
               </Button>
               <Text className="text-base font-dropbox font-light text-[#404040] leading-[26px]">
                 If you don&apos;t want to change your password or didn&apos;t

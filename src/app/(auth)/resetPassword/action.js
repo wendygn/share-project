@@ -14,7 +14,7 @@ console.log(`user : ${user}`)
 await prisma.resetPassword.create({
     data: {
         token : generatedToken,
-        userId: user.id,
+        userId: user,
         expiresAt : new Date(Date.now() + 15 * 60 * 1000)
     }
 })

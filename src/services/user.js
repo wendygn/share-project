@@ -46,6 +46,7 @@ password : withPassword
 }
 
 export async function getUserBySessionId(sessionId){
+  
   const user = await prisma.session.findUnique({
     where : {
       id : sessionId
@@ -114,6 +115,7 @@ return file
 }
 
 export async function getSharedByUserId(userId) {
+  
   const shared = await prisma.shared.findMany({
     where: {
       userId: userId,
@@ -126,6 +128,10 @@ export async function getSharedByUserId(userId) {
       path: true,
     },
   });
+
+  if(!shared) {
+    return null
+  }
   return shared
 }
 

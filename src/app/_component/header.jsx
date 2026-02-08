@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation";
 import NavLink from "./navlink";
 import { Button } from "@/components/ui/button";
 import { useLogout } from "./useLogout";
+import { UserProfile } from "./profile"
 
-export const Header = ({isLogin}) => {
+export const Header = ({isLogin, user}) => {
   const logout = useLogout()
 const pathName = usePathname() || "/"
 const normalize = (p) => p.replace(/\/$/,'') || '/'
@@ -36,6 +37,7 @@ const p = normalize(pathName)
             Logout
           </Button>
         )}
+       <UserProfile user={user} />
       </div>
     </header>
   );

@@ -2,9 +2,8 @@ import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/sonner";
 import HeaderServer from "./_component/headerServer";
-import { cookies } from "next/headers";
-import { redirect } from "next/navigation";
-import prisma from "@/utils/prisma";
+
+
 
 
 const geistSans = Geist({

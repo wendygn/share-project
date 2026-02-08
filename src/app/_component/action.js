@@ -1,10 +1,11 @@
 "use server";
-import { getUserBySessionId, getUserByUserId } from "@/services/user";
+import { getUserBySessionId} from "@/services/user";
 import prisma from "@/utils/prisma";
 import { s3Client } from "@/utils/s3";
 import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { cookies } from "next/headers";
 import { redirect } from "next/navigation";
+
 
 
 export async function uploadFileAction(formData) {
@@ -57,3 +58,4 @@ const rDomain = process.env.R2_PUBLIC_DOMAIN;
  redirect("/dashboard")
 }
 
+    

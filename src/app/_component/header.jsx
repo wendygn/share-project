@@ -20,7 +20,7 @@ const p = normalize(pathName)
         <Share2 className="text-blue-500" />
         <div className="text-blue-500">FileShare</div>
       </div>
-      <div className="flex gap-2">
+      <div className="flex gap-2 px-10">
         <NavLink href="/" isActive={p === "/"}>
           home
         </NavLink>
@@ -33,7 +33,7 @@ const p = normalize(pathName)
             Login
           </NavLink>
         ) : (
-          <Button className="bg-blue-500 text-white" onClick={logout}>
+          <Button className="bg-blue-500 text-white hover:bg-blue-400 text-white " onClick={logout}>
             Logout
           </Button>
         )}

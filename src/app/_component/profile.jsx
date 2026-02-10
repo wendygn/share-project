@@ -5,6 +5,7 @@ import {
   HoverCardContent,
   HoverCardTrigger,
 } from "@/components/ui/hover-card";
+import { CircleUserIcon } from "lucide-react";
 
 export function UserProfile({user}) {
 
@@ -15,7 +16,7 @@ export function UserProfile({user}) {
   return (
     <HoverCard openDelay={10} closeDelay={100}>
       <HoverCardTrigger asChild>
-        <Button variant="link">My profile</Button>
+        <Button variant="link" size="20" className="ml-5" ><CircleUserIcon className="text-blue-400 size-8"/></Button>
       </HoverCardTrigger>
       <HoverCardContent className="flex w-64 flex-col gap-0.5">
         <div >name : {user.name}</div>

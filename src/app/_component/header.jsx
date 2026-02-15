@@ -33,7 +33,7 @@ const p = normalize(pathName)
             Login
           </NavLink>
         ) : (
-          <Button className="bg-blue-500 text-white hover:bg-blue-400 text-white " onClick={logout}>
+          <Button className="bg-blue-500 text-white hover:bg-blue-400 hover:text-white " onClick={logout}>
             Logout
           </Button>
         )}

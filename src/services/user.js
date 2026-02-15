@@ -1,6 +1,6 @@
 import  prisma  from "@/utils/prisma";
 import { hashPassword } from "./auth";
-import { id } from "date-fns/locale";
+
 
 export async function createUser(name, email, password){
     const hashedPassword = await hashPassword(password)
@@ -18,6 +18,21 @@ export async function createUser(name, email, password){
         email : user.email
     }
 
+}
+
+export async function createOauthSession(name, email) {
+  const user = await prisma.user.create({
+    data: {
+      name: name,
+      email : email,
+      password : null
+    }
+  })
+  return {
+    id : user.id,
+    name : user.name,
+    email : user.email
+  }
 }
 
 export async function getUserByEmail(email, withPassword = false){

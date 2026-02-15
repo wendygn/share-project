@@ -4,14 +4,16 @@ import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Input } from "@/components/ui/input";
 import { Lock, Mail, Share2 } from "lucide-react";
-import HandleRegister from "../register/action";
+
 import Link from "next/link";
 import HandleLogin from "./action";
 import { useActionState } from "react";
+import { googleAuthAction } from "../action";
 
 
 export default function LoginPage() {
   const [state, action, pending] = useActionState(HandleLogin, null)
+  const [_, actionOauth, pendingOauth] = useActionState(googleAuthAction,null)
     return (
       <div className=" w-xl p-5 justify-center items-center m-auto mt-8">
         <div className="flex flex-col justify-center items-center mb-7">
@@ -65,6 +67,9 @@ export default function LoginPage() {
             </Button>
             {pending && <div className="text-gray-500">loading....</div>}
             {state?.error && <div className="text-red-400">{state.error}</div>}
+          </form>
+          <form action={actionOauth}>
+            <Button disabled={pendingOauth}>Google</Button>
           </form>
           <p className="w-full justify-center items-center text-center">
             dont have account?{" "}

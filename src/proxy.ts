@@ -3,7 +3,7 @@ import { NextResponse } from "next/server";
 
 
 export const config = {
-  matcher: ["/((?!$|login|register|api|_next|favicon.ico).*)"],
+  matcher: ["/((?!$|login|register|api|_next|favicon.ico|callback).*)"],
 };
 
 export default function proxy(req) {
